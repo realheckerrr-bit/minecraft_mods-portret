@@ -38,4 +38,5 @@ async function verifyOutput(output) { setStatus('Verifying', 'busy'); const resu
 $('browseInput').addEventListener('click', () => run(async () => { const value = await window.modPorter.browseInput(); if (value) { $('inputPath').value = value; log(`Selected input: ${value}`); } }));
 $('browseOutput').addEventListener('click', () => run(async () => { const value = await window.modPorter.browseOutput(); if (value) { $('outputPath').value = value; log(`Selected output folder: ${value}`); } }));
 $('loadVersions').addEventListener('click', () => run(loadVersions)); $('analyze').addEventListener('click', () => run(analyze)); $('port').addEventListener('click', () => run(port)); $('clearLog').addEventListener('click', () => { $('log').innerHTML = ''; });
+document.querySelectorAll('.app-tab').forEach((tab) => tab.addEventListener('click', () => { document.querySelectorAll('.app-tab').forEach((item) => item.classList.remove('active')); tab.classList.add('active'); document.querySelector(`.${tab.dataset.target}`).scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
 window.addEventListener('DOMContentLoaded', () => { run(loadVersions); });

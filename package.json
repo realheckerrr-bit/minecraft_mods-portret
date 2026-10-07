@@ -43,10 +43,14 @@
       "signAndEditExecutable": false
     },
     "nsis": {
+      "artifactName": "Minecraft-Mod-Porter-${version}-${arch}-installer.${ext}",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
+    },
+    "portable": {
+      "artifactName": "Minecraft-Mod-Porter-${version}-${arch}-portable.${ext}"
     }
   }
 }
