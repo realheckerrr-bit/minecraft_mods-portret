@@ -5,3 +5,4 @@ coverage/
 *.log
 port-output/
 .tmp-port/
+dist-gui/

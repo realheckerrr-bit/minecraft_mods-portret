@@ -3,16 +3,50 @@
   "version": "0.1.0",
   "description": "A safe, data-driven Minecraft mod porting workbench for Forge, NeoForge, Fabric, and Quilt.",
   "type": "module",
+  "main": "desktop/main.cjs",
   "bin": {
     "mod-porter": "src/cli.js"
   },
   "scripts": {
     "test": "node --test",
-    "lint": "node --check src/cli.js && node --check src/port.js && node --check src/inspect.js",
-    "start": "node src/cli.js"
+    "lint": "node --check src/cli.js && node --check src/port.js && node --check src/inspect.js && node --check desktop/main.cjs && node --check desktop/preload.cjs && node --check desktop/renderer/renderer.js",
+    "start": "node src/cli.js",
+    "gui": "electron .",
+    "dist:win": "electron-builder --win nsis portable",
+    "dist:dir": "electron-builder --dir"
   },
   "engines": {
     "node": ">=20"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "author": "realheckerrr-bit",
+  "devDependencies": {
+    "electron": "^44.6.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.realheckerrr.minecraftmodsportret",
+    "productName": "Minecraft Mod-Porter",
+    "artifactName": "Minecraft-Mod-Porter-${version}-${arch}.${ext}",
+    "directories": {
+      "output": "dist-gui"
+    },
+    "files": [
+      "src/**/*",
+      "desktop/**/*",
+      "package.json",
+      "README.md",
+      "LICENSE"
+    ],
+    "win": {
+      "target": ["nsis", "portable"],
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
 }

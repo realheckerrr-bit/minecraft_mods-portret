@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self';">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minecraft Mod-Porter</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand-mark"><span></span><span></span><span></span><span></span></div>
+      <div>
+        <div class="eyebrow">MINECRAFT TOOLCHAIN</div>
+        <h1>Minecraft Mod-Porter</h1>
+      </div>
+      <div class="topbar-spacer"></div>
+      <div id="status" class="status ready"><i></i><span>Ready</span></div>
+    </header>
+
+    <main class="content">
+      <section class="hero">
+        <div>
+          <div class="eyebrow accent">SAFE, DATA-DRIVEN PORTING</div>
+          <h2>Move a mod between loaders<br><em>with a report you can trust.</em></h2>
+          <p>Analyze a JAR or source project, choose a target loader and Minecraft release, then review every automatic change before you build.</p>
+        </div>
+        <div class="loader-orbit" aria-hidden="true"><span>F</span><span>N</span><span>Q</span><span>F</span><div>MOD<br>PORTER</div></div>
+      </section>
+
+      <section class="workspace-grid">
+        <div class="card controls-card">
+          <div class="card-heading"><div class="step">01</div><div><h3>Choose input</h3><p>JAR files work for metadata ports. Source projects allow API rewrites.</p></div></div>
+          <label for="inputPath">Mod JAR or project folder</label>
+          <div class="field-row"><input id="inputPath" type="text" placeholder="C:\\Mods\\example.jar"><button id="browseInput" class="secondary">Browse</button></div>
+
+          <div class="split-fields">
+            <div><label for="fromLoader">Source loader</label><select id="fromLoader"><option value="">Auto-detect</option><option value="neoforge">NeoForge</option><option value="forge">Forge</option><option value="fabric">Fabric</option><option value="quilt">Quilt</option></select></div>
+            <div><label for="toLoader">Target loader</label><select id="toLoader"><option value="fabric">Fabric</option><option value="quilt">Quilt</option><option value="forge">Forge</option><option value="neoforge">NeoForge</option></select></div>
+          </div>
+
+          <div class="split-fields version-row">
+            <div><label for="minecraftVersion">Minecraft target</label><div class="field-row"><input id="minecraftVersion" list="versionList" value="latest"><button id="loadVersions" class="icon-button" title="Refresh Minecraft releases">↻</button></div><datalist id="versionList"></datalist></div>
+            <div><label for="loaderVersion">Loader version <span class="muted">optional</span></label><input id="loaderVersion" placeholder="Resolve automatically"></div>
+          </div>
+
+          <label for="outputPath">Output folder</label>
+          <div class="field-row"><input id="outputPath" type="text" placeholder="C:\\Mods\\ported-example"><button id="browseOutput" class="secondary">Browse</button></div>
+
+          <div class="action-row"><button id="analyze" class="secondary action">Analyze input</button><button id="port" class="primary action">Port mod <span>→</span></button></div>
+          <div class="hint"><span class="hint-icon">i</span> Existing files are never overwritten unless you explicitly enable replacement in the CLI. JAR bytecode is preserved and flagged for manual API review.</div>
+        </div>
+
+        <div class="right-stack">
+          <div class="card analysis-card">
+            <div class="card-heading compact"><div class="step">02</div><div><h3>Inspection</h3><p>What the engine found in your input.</p></div></div>
+            <div id="analysisEmpty" class="empty-state"><div class="empty-glyph">⌁</div><p>Choose an input and click <strong>Analyze input</strong>.</p></div>
+            <div id="analysisResult" class="hidden"></div>
+          </div>
+          <div class="card output-card">
+            <div class="card-heading compact"><div class="step">03</div><div><h3>Result</h3><p>Output verification and porting report.</p></div></div>
+            <div id="resultEmpty" class="empty-state"><div class="empty-glyph">↗</div><p>Your report preview will appear here after a port.</p></div>
+            <div id="resultContent" class="hidden"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="log-panel"><div class="log-header"><span>ACTIVITY</span><button id="clearLog">Clear</button></div><div id="log" class="log"><div class="log-line muted-line">Waiting for an input.</div></div></section>
+    </main>
+    <footer><span>minecraft_mods-portret</span><span>Forge · NeoForge · Fabric · Quilt</span><span>Minecraft 1.20.1 → latest release</span></footer>
+  </div>
+  <script src="./renderer.js"></script>
+</body>
+</html>

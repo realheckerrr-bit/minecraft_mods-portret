@@ -1,0 +1,28 @@
+name: Windows desktop build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+      - run: npm run dist:win
+      - uses: actions/upload-artifact@v4
+        with:
+          name: minecraft-mods-portret-windows
+          path: dist-gui/*
+          if-no-files-found: error

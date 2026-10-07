@@ -52,6 +52,23 @@ npm start -- port --input ./my-mod --to quilt --minecraft 1.20.1..latest --outpu
 
 Each version is written to `./port-output/<minecraft-version>/`. Add `--offline` to skip network lookups; this uses conservative fallback loader metadata constraints and does not update the version list.
 
+## Windows GUI and EXE
+
+The repository also contains a desktop GUI backed by the same porting engine:
+
+```text
+npm install
+npm run gui
+```
+
+To build a Windows installer and portable EXE locally:
+
+```text
+npm run dist:win
+```
+
+The artifacts are written to `dist-gui/`. The GUI provides input/output browsing, automatic or explicit source-loader selection, target loader selection, Mojang release loading, analysis, porting, verification, and a report preview. GitHub Actions builds the Windows installer and portable executable on every push to `main` and publishes them as workflow artifacts.
+
 ## Commands
 
 ### `analyze`
