@@ -33,3 +33,15 @@ test('repackages a JAR and leaves compiled entries intact', async () => {
   assert.deepEqual(jar.get('demo/Demo.class'), Buffer.from([0xca, 0xfe, 0xba, 0xbe]));
   assert.equal((await verifyPort(output)).ok, true);
 });
+
+test('honors an explicit source loader when a universal JAR has multiple metadata files', async () => {
+  const root = await fs.mkdtemp(path.join(os.tmpdir(), 'mod-porter-multi-'));
+  const input = path.join(root, 'multi');
+  const output = path.join(root, 'out');
+  await fs.mkdir(input);
+  await fs.writeFile(path.join(input, 'fabric.mod.json'), JSON.stringify({ id: 'fabric_identity', version: '1.0.0', depends: { minecraft: '1.20.1' } }));
+  await fs.writeFile(path.join(input, 'quilt.mod.json'), JSON.stringify({ quilt_loader: { id: 'quilt_identity', version: '1.0.0', metadata: { name: 'Quilt identity' } } }));
+  await portMod({ inputPath: input, outputPath: output, from: 'fabric', to: 'quilt', minecraft: '1.20.1', offline: true });
+  const metadata = JSON.parse(await fs.readFile(path.join(output, 'quilt.mod.json'), 'utf8'));
+  assert.equal(metadata.quilt_loader.id, 'fabric_identity');
+});

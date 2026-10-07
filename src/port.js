@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { findMetadataEntry, inspectInput, readInput } from './inspect.js';
+import { findMetadataEntry, identityForLoader, inspectInput, metadataFor, readInput } from './inspect.js';
 import { METADATA_PATHS, normalizeLoader } from './loaders.js';
 import { writeZip } from './zip.js';
 import { getLoaderVersion } from './versions.js';
@@ -203,10 +203,12 @@ export async function portMod({ inputPath, outputPath, from, to, minecraft, load
     catch (error) { if (error.code !== 'ENOENT') throw error; }
   }
   await fs.mkdir(output, { recursive: true });
+  const sourceMetadata = metadataFor(input.entries, sourceLoader);
+  const sourceIdentity = identityForLoader(sourceLoader, sourceMetadata) ?? inspection.identity;
   const rewritten = rewriteEntries(input.entries, sourceLoader, targetLoader, input.kind);
   removeLoaderMetadata(rewritten.entries);
   const loaderVersionResolved = loaderVersion ?? await getLoaderVersion(targetLoader, minecraft, { offline });
-  const targetMetadata = createTargetMetadata({ identity: inspection.identity, inputMetadata: inspection.metadata, from: sourceLoader, to: targetLoader, minecraft, loaderVersion: loaderVersionResolved });
+  const targetMetadata = createTargetMetadata({ identity: sourceIdentity, inputMetadata: sourceMetadata, from: sourceLoader, to: targetLoader, minecraft, loaderVersion: loaderVersionResolved });
   targetMetadata.path = targetMetadataPath(input.entries, sourceLoader, targetLoader);
   rewritten.entries.set(targetMetadata.path, Buffer.from(targetMetadata.content));
   if (input.kind === 'project') await writeProjectEntries(output, rewritten.entries);

@@ -66,24 +66,33 @@ function metadataForLoader(entries, loader) {
 
 function versionsFromMetadata(loader, metadata) {
   if (!metadata || metadata._parseError) return [];
-  if (loader === 'fabric' || loader === 'quilt') {
+  if (loader === 'fabric') {
     const minecraft = metadata.depends?.minecraft;
+    return minecraft ? [String(minecraft)] : [];
+  }
+  if (loader === 'quilt') {
+    const minecraft = metadata.quilt_loader?.depends?.find((dependency) => dependency.id === 'minecraft')?.versions;
     return minecraft ? [String(minecraft)] : [];
   }
   return metadata.minecraftVersionRange ? [metadata.minecraftVersionRange] : [];
 }
 
+export function identityForLoader(loader, metadata) {
+  if (!metadata || metadata._parseError) return null;
+  const id = loader === 'quilt' ? metadata.quilt_loader?.id : loader === 'fabric' ? metadata.id : metadata.modId;
+  if (!id) return null;
+  return {
+    id,
+    name: loader === 'quilt' ? (metadata.quilt_loader?.metadata?.name ?? id) : (metadata.name ?? metadata.displayName ?? id),
+    version: loader === 'quilt' ? metadata.quilt_loader?.version : metadata.version,
+    description: loader === 'quilt' ? metadata.quilt_loader?.metadata?.description : metadata.description,
+  };
+}
+
 function identifyMod(metadataByLoader) {
   for (const loader of ['quilt', 'fabric', 'neoforge', 'forge']) {
-    const metadata = metadataByLoader[loader];
-    if (!metadata || metadata._parseError) continue;
-    const id = loader === 'fabric' || loader === 'quilt' ? metadata.id ?? metadata.quilt_loader?.id : metadata.modId;
-    if (id) return {
-      id,
-      name: loader === 'quilt' ? (metadata.quilt_loader?.metadata?.name ?? id) : (metadata.name ?? metadata.displayName ?? id),
-      version: loader === 'quilt' ? metadata.quilt_loader?.version : metadata.version,
-      description: loader === 'quilt' ? metadata.quilt_loader?.metadata?.description : metadata.description,
-    };
+    const identity = identityForLoader(loader, metadataByLoader[loader]);
+    if (identity) return identity;
   }
   return { id: 'unknown-mod', name: 'Unknown mod', version: '0.0.0', description: '' };
 }
