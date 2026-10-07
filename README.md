@@ -69,6 +69,10 @@ npm run dist:win
 
 The artifacts are written to `dist-gui/`. The GUI provides input/output browsing, automatic or explicit source-loader selection, target loader selection, Mojang release loading, analysis, porting, verification, and a report preview. GitHub Actions builds the Windows installer and portable executable on every push to `main` and publishes them as workflow artifacts.
 
+## Ownership and forks
+
+The original Minecraft Mod-Porter product is owned by **realheckerrr-bit**. The included [Minecraft Mod-Porter License](./LICENSE) allows people to change, fork, merge, redistribute, and sell modified versions, as long as the original copyright and license remain visible and modified versions are identified. Forks should use a distinct product name; the original branding is not transferred.
+
 ## Commands
 
 ### `analyze`

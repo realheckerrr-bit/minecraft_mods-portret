@@ -1,16 +1,27 @@
-MIT License
+Minecraft Mod-Porter License (MIT-compatible)
 
 Copyright (c) 2026 realheckerrr-bit
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Minecraft Mod-Porter is the original product of realheckerrr-bit.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to use,
+copy, modify, change, fork, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is furnished
+to do so, subject to the following conditions:
+
+1. The copyright notice and this license must be included in all copies or
+   substantial portions of the Software.
+
+2. Modified versions and forks may be distributed under this license or under
+   another license compatible with these permissions, provided that the
+   original copyright notice remains visible and the modified work is clearly
+   identified as modified.
+
+3. The name "Minecraft Mod-Porter" and the original product branding are not
+   transferred by this license. Forks may use the name only to describe their
+   relationship to the original project and should choose a distinct product
+   name for redistributed versions.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
