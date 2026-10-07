@@ -12,7 +12,7 @@
     "lint": "node --check src/cli.js && node --check src/port.js && node --check src/inspect.js && node --check desktop/main.cjs && node --check desktop/preload.cjs && node --check desktop/renderer/renderer.js",
     "start": "node src/cli.js",
     "gui": "electron .",
-    "dist:win": "electron-builder --win nsis portable",
+    "dist:win": "electron-builder --win nsis portable --publish never",
     "dist:dir": "electron-builder --dir"
   },
   "engines": {
